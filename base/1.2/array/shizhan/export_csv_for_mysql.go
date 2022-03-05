@@ -11,20 +11,20 @@ import (
 
 // 从mysql 读取数据到csv 文件中
 var (
-	tables = []string{"user", "order"}
+	tables = []string{"user", "orders"}
 	count  = len(tables)
 	ch     = make(chan bool, count)
 )
 
 func main() {
 	// 链接数据库
-	db, err := sql.Open("mysql", "root:root@tcp(192.168.1.104:3306)/chapter1?char-set=utf8")
-	defer db.Close()
+	db, err := sql.Open("mysql", "root:123456@tcp(192.168.1.104:3306)/chapter1")
 	if err != nil {
 		panic(err.Error())
 	}
+	defer db.Close()
 	for _, table := range tables {
-		go SqlQuery(db, table, ch)
+		go SqlQuerys(db, table, ch)
 	}
 	for i := 0; i < count; i++ {
 		<-ch
@@ -33,7 +33,7 @@ func main() {
 
 }
 
-func SqlQuery(db *sql.DB, table string, ch chan bool) {
+func SqlQuerys(db *sql.DB, table string, ch chan bool) {
 	fmt.Println("开始处理导出:", table)
 	rows, _ := db.Query(fmt.Sprintf("select * from %s", table))
 	columns, err := rows.Columns()
@@ -51,7 +51,7 @@ func SqlQuery(db *sql.DB, table string, ch chan bool) {
 		//把每行内容添加到scanArgs，也添加到了values
 		err = rows.Scan(scanArgs...)
 		if err != nil {
-			panic(err.Error())
+			panic(err.Error() + "====")
 		}
 		for _, v := range values {
 			s = append(s, string(v))
