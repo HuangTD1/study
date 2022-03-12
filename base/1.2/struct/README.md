@@ -114,3 +114,28 @@ func main() {
     fmt.Println(*person3)
 }
 ```
+3. 结构体嵌套`struct3.go`
+4. 结构体字段标签
+* 结构体字段标签Tag 是指结构体字段的额外信息，常用于对自担进行说明，在进行json 序列化即对象关系映射时，都会用到结构体字段标签，标签信息都是静态的，无序实例化结构体，可以通过反射获得。标签在结构体字段后边书写，格式由1个或者多个键值对组成，键值对之间使用空格隔开
+```go
+package main
+import (
+    "fmt"
+    "reflect"
+)
+type Programmer struct {
+    Name string `json:"name" level:"12"` // 标签
+}
+func main(){
+    var pro Programmer = Programmer{}
+    // 反射获取标签信息
+    typeOfPro := reflect.TypeOf(pro)
+    proFieldName, ok := typeOfPro.FieldByName("Name")
+    if ok {
+        // 打印标签信息
+        fmt.Println(proFieldName.Tag.Get("json"), proFieldName.Tag.Get("level"))
+    }
+}
+//out
+//name 12
+```
