@@ -3,17 +3,15 @@ package main
 import (
 	"fmt"
 	"time"
-
-	"study/base/1.2/struct/game/pkg"
 )
 
 func main() {
 	// 创建玩家，设置玩家速度
-	var p = pkg.NewPlayer(0.6)
+	var p = games.NewPlayer(0.6)
 	fmt.Println(p.Speed)
 	// 设置玩家目标位置
-	p.MoveTo(pkg.Vector{3, 9})
-	p.CurrentVector = pkg.Vector{9, 13}
+	p.MoveTo(games.Vector{3, 9})
+	p.CurrentVector = games.Vector{9, 13}
 	fmt.Println(p.TargetVector)
 	for !p.IsArrived() {
 		// 更新位置
