@@ -5,13 +5,13 @@ import (
 	"fmt"
 )
 
-// 基础
+// Item 基础
 type Item struct {
 	Title string
 	URL   string
 }
 
-// 定义相应结构体
+// Response 定义相应结构体
 type Response struct {
 	Data struct {
 		Children []struct {
