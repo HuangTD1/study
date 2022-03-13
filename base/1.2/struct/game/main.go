@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/zhanghn8/games"
 	"time"
 )
 
@@ -10,8 +11,8 @@ func main() {
 	var p = games.NewPlayer(0.6)
 	fmt.Println(p.Speed)
 	// 设置玩家目标位置
-	p.MoveTo(games.Vector{3, 9})
-	p.CurrentVector = games.Vector{9, 13}
+	p.MoveTo(games.Vector{X: 3, Y: 9})
+	p.CurrentVector = games.Vector{X: 9, Y: 13}
 	fmt.Println(p.TargetVector)
 	for !p.IsArrived() {
 		// 更新位置
