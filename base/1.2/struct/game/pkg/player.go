@@ -6,7 +6,7 @@ type Player struct {
 	Speed         float32
 }
 
-// 初始化玩家
+// 初始化玩家，设置速度
 func NewPlayer(Speed float32) Player {
 	return Player{Speed: Speed}
 }
@@ -21,13 +21,13 @@ func (p Player) Position() Vector {
 	return p.CurrentVector
 }
 
-// 是否达到目标位置
+// 是否到达目标位置
 func (p Player) IsArrived() bool {
 	return p.CurrentVector.distanceTo(p.TargetVector) < p.Speed
 }
 
-// 更新位置
-func (p *Player) Updata() {
+// 更新玩家位置
+func (p *Player) Update() {
 	directionVector := p.TargetVector.sub(p.CurrentVector)
 	normalizeVector := directionVector.normalize()
 	pointChange := normalizeVector.multi(p.Speed)
